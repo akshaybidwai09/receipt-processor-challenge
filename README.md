@@ -33,7 +33,7 @@ The following endpoints are exposed:
 - **Docker**
 - **Java 17** **(Dont need to have in your machine, build command will use java base image)**
 - **Maven** **(Dont need to have in your machine, build command will use maven base image)**
-- I have created dockerfile script that installs all the necessary libraries without manual work.
+- **I have created dockerfile script that installs all the necessary libraries without manual work.**
 ---
 
 ## 4. How to Run This Project
