@@ -62,4 +62,13 @@ public class ReceiptController {
 
         return ResponseEntity.badRequest().body(response);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, Object>> handleIllegalArgumentException(IllegalArgumentException ex) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("error", "Invalid receipt data. Please verify input.");
+        response.put("details", ex.getMessage());
+
+        return ResponseEntity.badRequest().body(response);
+    }
 }
