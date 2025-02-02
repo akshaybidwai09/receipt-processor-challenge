@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
 
 public class ReceiptUtils {
 
-    // I have assumed the program is not generated using LLM but if it does, we must have a service to detect that and then update this field;
+    /** I have assumed the program is not generated using LLM but if it does, we must have a service to detect that and then update this field;*/
     private static boolean ENABLE_LLM_ = false;
 
 
@@ -20,7 +20,8 @@ public class ReceiptUtils {
 
         int points = 0;
 
-        points += receipt.getRetailer().replaceAll("\\W", "").length();
+        // alphanumeric character and
+        points += receipt.getRetailer().replaceAll("[^a-zA-Z0-9]", "").length();
 
 
         if(isRoundDollarAmount(receipt.getTotal())) {

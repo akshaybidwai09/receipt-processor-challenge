@@ -18,6 +18,8 @@ public class ReceiptService {
 
     public String processReceipt(Receipt receipt){
 
+        // validates the request and processes to calculate points
+
         String validationError = ReceiptUtils.validateReceipt(receipt);
         if (validationError != null) {
             throw new IllegalArgumentException(validationError);
