@@ -34,8 +34,8 @@ The following endpoints are exposed:
 ## 3. Prerequisites
 
 - **Docker**
-- **Java 17** **(Dont need to have in your machine, build command will use java base image)**
-- **Maven** **(Dont need to have in your machine, build command will use maven base image)**
+- **Java 17** **(Not required in your machine, build command will use default java base image)**
+- **Maven** **(Not required in your machine, build command will use maven base image)**
 - **I have created dockerfile script that installs all the necessary libraries without manual work.**
 ---
 
@@ -146,6 +146,8 @@ curl -X GET "http://localhost:9000/receipts/{id}/points"
   "points": final_points
 }
 ```
+If the input is invalid, an appropriate error message will be returned.
+
 ---
 
 ### 9. Edge Cases Considered
@@ -162,7 +164,6 @@ curl -X GET "http://localhost:9000/receipts/{id}/points"
 3. **Receipts from the same retailer get unique IDs** since UUIDs are generated per receipt.
 4. **Multiple receipts from the same retailer can be submitted** without restriction.
 
-If the input is invalid, an appropriate error message will be returned.
 
 
 
