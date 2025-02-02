@@ -1,4 +1,4 @@
-# Receipt Processor API
+# Receipt Processor Challenge
 
 ## Overview
 This project implements a **Receipt Processing API** that assigns points to receipts based on various rules.
