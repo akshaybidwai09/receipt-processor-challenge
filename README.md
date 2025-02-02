@@ -159,10 +159,10 @@ If the input is invalid, an appropriate error message will be returned.
 
 ---
 ### 10. Assumptions
-1. **Duplicate retailer names are allowed** because the README does not prohibit it.
-2. **Each receipt is processed independently**, so no need to check for existing retailers.
-3. **Receipts from the same retailer get unique IDs** since UUIDs are generated per receipt.
-4. **Multiple receipts from the same retailer can be submitted** without restriction.
+1. **I Assume duplicate retailer names are allowed, since UUID is unique paratmeter**.
+2. **I Assume each receipt processes independently**, so no need to check for existing retailers.
+3. **Every eeceipts from the same retailer get unique IDs** since UUIDs are generated per receipt.
+4. **I Assume multiple receipts from the same retailer can be submitted** without restriction.
 
 
 
