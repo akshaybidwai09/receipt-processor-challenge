@@ -12,7 +12,8 @@ import java.time.format.DateTimeParseException;
 
 public class ReceiptUtils {
 
-    /** I have assumed the program is not generated using LLM but if it does, we must have a service to detect that and then update this field;*/
+    /** I have assumed the program is not generated using LLM but if it does, we must have a
+     * service to detect that and then update this field;*/
     private static boolean ENABLE_LLM_ = false;
 
 
@@ -20,21 +21,22 @@ public class ReceiptUtils {
 
         int points = 0;
 
-        // alphanumeric character and
+        // alphanumeric character point collection
         points += receipt.getRetailer().replaceAll("[^a-zA-Z0-9]", "").length();
 
-
+        //round dollar amount point collection
         if(isRoundDollarAmount(receipt.getTotal())) {
             points += 50;
         }
-
+        //multiple of 0.25 point collection
         if(isMultipleofQuarter(receipt.getTotal())){
             points += 25;
         }
 
+        // pair of two pint collection
         points += (receipt.getItems().size() / 2) * 5;
 
-
+        //  multiple of 3 items name point collection
         for (Item item : receipt.getItems()) {
             int descriptionLength = item.getShortDescription().trim().length();
             if (descriptionLength % 3 == 0) {
@@ -42,14 +44,17 @@ public class ReceiptUtils {
             }
         }
 
+
         if (ENABLE_LLM_ && Double.parseDouble(receipt.getTotal()) > 10.00) {
             points += 5;
         }
 
+        // odd day point collection
         if(isDayOdd(receipt.getPurchaseDate())){
             points += 6;
         }
 
+        // purchase time point collection
         if(isBetweenTwoAndFourPM(receipt.getPurchaseTime())){
             points += 10;
         }
