@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-
+import java.time.format.DateTimeParseException;
 
 
 public class ReceiptUtils {
@@ -82,6 +82,11 @@ public class ReceiptUtils {
     }
 
     public static String validateReceipt(Receipt receipt) {
+
+        /**
+         * Null validation is already managed on Object level via annotation below null validation are
+         * for validating sample tests written in ReceiptServiceTest.java file which by passes controller
+         * */
         if (receipt == null) {
             return "Receipt cannot be null.";
         }
@@ -91,9 +96,23 @@ public class ReceiptUtils {
         if (receipt.getPurchaseDate() == null || receipt.getPurchaseDate().trim().isEmpty()) {
             return "Purchase date is required (YYYY-MM-DD).";
         }
+
+        try {
+            LocalDate.parse(receipt.getPurchaseDate()); // Throws exception if invalid
+        } catch (DateTimeParseException e) {
+            return "Invalid purchase date format. Expected format: YYYY-MM-DD.";
+        }
+
         if (receipt.getPurchaseTime() == null || receipt.getPurchaseTime().trim().isEmpty()) {
             return "Purchase time is required (HH:MM).";
         }
+
+        try {
+            LocalTime.parse(receipt.getPurchaseTime()); // Validates proper HH:MM format (24-hour)
+        } catch (DateTimeParseException e) {
+            return "Invalid purchase time format. Expected format: HH:MM (24-hour format).";
+        }
+
         if (receipt.getItems() == null || receipt.getItems().isEmpty()) {
             return "Items list cannot be empty.";
         }
