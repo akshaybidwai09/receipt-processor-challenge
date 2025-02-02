@@ -146,18 +146,21 @@ curl -X GET "http://localhost:9000/receipts/{id}/points"
   "points": final_points
 }
 ```
-
 ---
 
----
+### 9. Edge Cases Considered
+1. **Invalid Input Handling**: Missing fields return a `400 Bad Request`.
+2. **Non-Existent Receipt ID**: Returns `404 Not Found`.
+3. **Negative or Incorrectly Formatted Total Price**: Returns `400 Bad Request`.
+4. **Purchase Date Format Validation**: Ensures `YYYY-MM-DD` format.
+5. **Purchase Time Format Validation**: Ensures `HH:MM` format.
 
-### 9. **Error Handling**
-To ensure data consistency and proper validation, the following constraints must be met:
-- **Date format:** `YYYY-MM-DD`
-- **Time format:** `HH:MM` (24-hour format)
-- **Total and item prices must be valid numbers** (e.g., `10.00`, `5.25`) and the number cannot be negative!
-- **Retailer name must be a valid string**
-- **All required fields must be present in the request**
+---
+### 10. Assumptions
+1. **Duplicate retailer names are allowed** because the README does not prohibit it.
+2. **Each receipt is processed independently**, so no need to check for existing retailers.
+3. **Receipts from the same retailer get unique IDs** since UUIDs are generated per receipt.
+4. **Multiple receipts from the same retailer can be submitted** without restriction.
 
 If the input is invalid, an appropriate error message will be returned.
 
