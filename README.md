@@ -1,7 +1,7 @@
 # Receipt Processor Challenge
 
 ## Overview
-This project implements a **Receipt Processing APIs** that assigns points to receipts based on various rules.
+This project implements a **Receipt Processing API** that assigns points to receipts based on various rules.
 
 ### 1. Rules for Points Calculation
 The following rules collectively define how many points should be awarded to a receipt:
