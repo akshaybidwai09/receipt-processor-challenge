@@ -81,52 +81,58 @@ public class ReceiptUtils {
         return !time.isBefore(LocalTime.of(14, 0)) && time.isBefore(LocalTime.of(16, 0));
     }
 
-    public static boolean validateReceipt(Receipt receipt) {
-        if (receipt == null ||
-                receipt.getRetailer() == null || receipt.getRetailer().trim().isEmpty() ||
-                receipt.getPurchaseDate() == null || receipt.getPurchaseDate().trim().isEmpty() ||
-                receipt.getPurchaseTime() == null || receipt.getPurchaseTime().trim().isEmpty() ||
-                receipt.getTotal() == null || receipt.getTotal().trim().isEmpty() ||
-                receipt.getItems() == null || receipt.getItems().isEmpty()) {
-            return false;
+    public static String validateReceipt(Receipt receipt) {
+        if (receipt == null) {
+            return "Receipt cannot be null.";
         }
-
-        // Validate Total
+        if (receipt.getRetailer() == null || receipt.getRetailer().trim().isEmpty()) {
+            return "Retailer name cannot be blank.";
+        }
+        if (receipt.getPurchaseDate() == null || receipt.getPurchaseDate().trim().isEmpty()) {
+            return "Purchase date is required (YYYY-MM-DD).";
+        }
+        if (receipt.getPurchaseTime() == null || receipt.getPurchaseTime().trim().isEmpty()) {
+            return "Purchase time is required (HH:MM).";
+        }
+        if (receipt.getItems() == null || receipt.getItems().isEmpty()) {
+            return "Items list cannot be empty.";
+        }
+        if (receipt.getTotal() == null || receipt.getTotal().trim().isEmpty()) {
+            return "Total price is required.";
+        }
+        // Additional validation for numeric fields
         try {
             BigDecimal totalAmount = new BigDecimal(receipt.getTotal());
+            if (totalAmount.scale() > 2) {
+                return "Total price must have at most two decimal places (e.g., 6.49).";
+            }
             if (totalAmount.compareTo(BigDecimal.ZERO) < 0) {
-                return false;
+                return "Total price cannot be negative.";
             }
         } catch (NumberFormatException e) {
-            return false;
+            return "Invalid total price format. Must be a valid number (e.g., 6.49).";
         }
 
-        // Validate Items
         for (Item item : receipt.getItems()) {
-            if (item.getShortDescription() == null || item.getShortDescription().trim().isEmpty() ||
-                    item.getPrice() == null || item.getPrice().trim().isEmpty()) {
-                return false;
+            if (item.getShortDescription() == null || item.getShortDescription().trim().isEmpty()) {
+                return "Each item must have a short description.";
+            }
+            if (item.getPrice() == null || item.getPrice().trim().isEmpty()) {
+                return "Each item must have a price.";
             }
             try {
                 BigDecimal price = new BigDecimal(item.getPrice());
                 if (price.compareTo(BigDecimal.ZERO) < 0) {
-                    return false;
+                    return "Price can not be negative";
                 }
             } catch (NumberFormatException e) {
-                return false;
+                return "Invalid price format for an item.";
             }
         }
 
-        // Validate Date & Time Formats
-        try {
-            LocalDate.parse(receipt.getPurchaseDate());
-            LocalTime.parse(receipt.getPurchaseTime(), DateTimeFormatter.ofPattern("HH:mm"));
-        } catch (Exception e) {
-            return false;
-        }
-
-        return true;
+        return null;
     }
+
 
     private static boolean ENABLE_LLM_BONUS = false;
 }

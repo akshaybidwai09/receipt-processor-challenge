@@ -67,7 +67,7 @@ public class ReceiptServiceTest {
         receipt.setItems(List.of(new Item("Mountain Dew 12PK", "6.49")));
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> receiptService.processReceipt(receipt));
-        assertEquals("Invalid receipt data. Please verify input.", exception.getMessage());
+        assertEquals("Retailer name cannot be blank.", exception.getMessage());
     }
 
     @Test
@@ -76,11 +76,11 @@ public class ReceiptServiceTest {
         receipt.setRetailer("Walmart");
         receipt.setPurchaseDate("2022-01-01");
         receipt.setPurchaseTime("13:01");
-        receipt.setTotal(""); // Empty total
+        receipt.setTotal("-1"); // negative total
         receipt.setItems(List.of(new Item("Mountain Dew 12PK", "6.49")));
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> receiptService.processReceipt(receipt));
-        assertEquals("Invalid receipt data. Please verify input.", exception.getMessage());
+        assertEquals("Total price cannot be negative.", exception.getMessage());
     }
 
     @Test
@@ -93,7 +93,7 @@ public class ReceiptServiceTest {
         receipt.setItems(List.of()); // No items
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> receiptService.processReceipt(receipt));
-        assertEquals("Invalid receipt data. Please verify input.", exception.getMessage());
+        assertEquals("Items list cannot be empty.", exception.getMessage());
     }
 
     @Test

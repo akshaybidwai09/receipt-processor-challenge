@@ -18,8 +18,9 @@ public class ReceiptService {
 
     public String processReceipt(Receipt receipt){
 
-        if (!ReceiptUtils.validateReceipt(receipt)) {
-            throw new IllegalArgumentException("Invalid receipt data. Please verify input.");
+        String validationError = ReceiptUtils.validateReceipt(receipt);
+        if (validationError != null) {
+            throw new IllegalArgumentException(validationError);
         }
         String id = UUID.randomUUID().toString();
         int points = ReceiptUtils.calculatePoints(receipt);

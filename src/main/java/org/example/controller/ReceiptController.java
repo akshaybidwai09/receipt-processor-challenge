@@ -26,12 +26,10 @@ public class ReceiptController {
 
     @PostMapping("/process")
     public ResponseEntity<?> processReceipt(@Valid @RequestBody Receipt receipt) {
-        try {
-            String id = receiptService.processReceipt(receipt);
-            return ResponseEntity.ok(new ResponseDTO(id, 0));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
-        }
+
+        String id = receiptService.processReceipt(receipt);
+        return ResponseEntity.ok(new ResponseDTO(id, 0));
+
     }
 
     @GetMapping("/{id}/points")
