@@ -9,7 +9,6 @@ public class ResponseDTO {
         this.id = id;
         this.points = points;
     }
-
     public String getId() {
         return id;
     }
