@@ -41,6 +41,7 @@ The following endpoints are exposed:
 
 ## 4. How to Run This Project
 
+(Application is exposed at port 9000)
 ### **Option 1: Pull the Image from Docker Hub**
 If you want to run the project using the pre-built Docker image, follow these steps:
 
