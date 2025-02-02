@@ -1,6 +1,6 @@
 # Receipt Processor Challenge
 
-#### This project is implemented in Java Spring Boot. We only need to have Docker installed on your machine. A Docker script will download the base JDK and Maven images, allowing you to run the project without any manual installation.
+#### This project is implemented in Java Spring Boot. We only need to have Docker installed on our machine. A Docker script will download the base JDK and Maven images, allowing you to run the project without any manual installation.
 
 ## Overview
 This project implements a **Receipt Processing API** that assigns points to receipts based on various rules.
